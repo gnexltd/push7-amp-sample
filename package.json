@@ -1,0 +1,26 @@
+{
+  "name": "push7-amp-sample",
+  "version": "1.0.0",
+  "description": "Sample implementing Push7 on AMP pages",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gnexltd/push7-amp-sample.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gnexltd/push7-amp-sample/issues"
+  },
+  "homepage": "https://github.com/gnexltd/push7-amp-sample#readme",
+  "dependencies": {
+    "ejs": "^3.0.2",
+    "express": "^4.17.1",
+    "untildify": "^4.0.0",
+    "yargs": "^15.3.1"
+  }
+}
