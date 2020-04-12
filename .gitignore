@@ -115,8 +115,7 @@ dist
 .pnp.*
 
 # Others
-public_html/index.html
-public_html/push7-worker.js
+public_html/*
 
 # Keep
 !.gitkeep

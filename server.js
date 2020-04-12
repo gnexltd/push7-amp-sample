@@ -11,6 +11,8 @@ const argv = require("yargs")
 const app = express();
 
 app.set("view engine", "ejs");
+app.engine('html', require('ejs').renderFile)
+app.engine('js', require('ejs').renderFile)
 
 const port = argv["port"] || process.env.PORT || 3000;
 
@@ -48,5 +50,5 @@ app.get("/push7-worker.js", function (req, res) {
   );
 });
 
-app.use("/", express.static(path.resolve(__dirname, "./public_html")));
+app.use("/", express.static(path.resolve(__dirname, "./src")));
 server.listen(port, () => console.log(`app listening on port ${port}`));
