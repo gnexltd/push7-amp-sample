@@ -3,6 +3,7 @@ const fs = require("fs");
 
 const ejs = require("ejs");
 const untildify = require("untildify");
+const minify = require("html-minifier").minify;
 
 const argv = require("yargs")
   .usage(
@@ -16,26 +17,54 @@ const params = {
   sw: argv["sw"] || "https://aldebaran.push7.com/ex-push7-worker.js",
 };
 
-fs.writeFileSync(
-  path.resolve(__dirname, "public_html/index.html"),
-  ejs.render(
-    fs.readFileSync(path.resolve(__dirname, "src/index.html")).toString(),
-    params
-  )
-);
+const srcDir = path.resolve(__dirname, "src");
+const distDir = path.resolve(__dirname, "public_html");
+
+const htmlFiles = fs
+  .readdirSync(srcDir, { withFileTypes: true })
+  .filter((dirent) => dirent.isFile())
+  .filter(({ name }) => /^(?!_).+\.html$/.test(name))
+  .map(({ name }) => name);
+
+for (let htmlFile of htmlFiles) {
+  fs.writeFileSync(
+    path.resolve(distDir, htmlFile),
+    minify(
+      ejs.render(
+        fs.readFileSync(path.resolve(srcDir, htmlFile)).toString(),
+        params
+      ),
+      {
+        collapseBooleanAttributes: true,
+        collapseWhitespace: true,
+        decodeEntities: false,
+        minifyCSS: true,
+        minifyJS: true,
+        keepClosingSlash: true,
+        processConditionalComments: true,
+        removeAttributeQuotes: false,
+        removeComments: true,
+        removeEmptyAttributes: false,
+        removeOptionalTags: false,
+        removeScriptTypeAttributes: false,
+        removeStyleLinkTypeAttributes: false,
+        trimCustomFragments: true,
+      }
+    )
+  );
+}
+
 if (argv["sw-path"]) {
   // sw-path が指定されている場合はそちらを優先
   fs.writeFileSync(
-    path.resolve(__dirname, "public_html/push7-worker.js"),
+    path.resolve(distDir, "push7-worker.js"),
     fs.readFileSync(path.resolve(__dirname, untildify(argv["sw-path"])))
   );
 } else {
   fs.writeFileSync(
     path.resolve(__dirname, "public_html/push7-worker.js"),
     ejs.render(
-      fs
-        .readFileSync(path.resolve(__dirname, "src/push7-worker.js"))
-        .toString(),
+      fs.readFileSync(path.resolve(srcDir, "push7-worker.js")).toString(),
       params
     )
   );

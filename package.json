@@ -21,6 +21,7 @@
   "dependencies": {
     "ejs": "^3.0.2",
     "express": "^4.17.1",
+    "html-minifier": "^4.0.0",
     "untildify": "^4.0.0",
     "yargs": "^15.3.1"
   },

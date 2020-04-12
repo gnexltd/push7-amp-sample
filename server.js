@@ -11,8 +11,8 @@ const argv = require("yargs")
 const app = express();
 
 app.set("view engine", "ejs");
-app.engine('html', require('ejs').renderFile)
-app.engine('js', require('ejs').renderFile)
+app.engine("html", require("ejs").renderFile);
+app.engine("js", require("ejs").renderFile);
 
 const port = argv["port"] || process.env.PORT || 3000;
 
