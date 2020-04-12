@@ -14,7 +14,7 @@ const argv = require("yargs")
 const params = {
   host: argv["host"],
   appno: argv["appno"],
-  sw: argv["sw"] || "https://aldebaran.push7.com/ex-push7-worker.js",
+  sw: typeof argv["sw-url"] === "string" ? argv["sw-url"] : "https://aldebaran.push7.com/ex-push7-worker.js",
 };
 
 const srcDir = path.resolve(__dirname, "src");
@@ -30,10 +30,10 @@ for (let htmlFile of htmlFiles) {
   fs.writeFileSync(
     path.resolve(distDir, htmlFile),
     minify(
-      ejs.render(
-        fs.readFileSync(path.resolve(srcDir, htmlFile)).toString(),
-        params
-      ),
+      ejs.render(fs.readFileSync(path.resolve(srcDir, htmlFile)).toString(), {
+        ...params,
+        filename: path.resolve(srcDir, htmlFile),
+      }),
       {
         collapseBooleanAttributes: true,
         collapseWhitespace: true,

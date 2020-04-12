@@ -24,7 +24,7 @@ const server = https.createServer(options, app);
 
 const params = {
   appno: argv["appno"],
-  sw: argv["sw"] || "https://aldebaran.push7.com/ex-push7-worker.js",
+  sw: argv["sw-url"] || "https://aldebaran.push7.com/ex-push7-worker.js",
 };
 
 app.get("/", function (req, res) {

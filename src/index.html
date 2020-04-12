@@ -79,6 +79,9 @@
         }
       }
     </style>
+    <style amp-custom>
+      <%= include('push7-amp.css') %>
+    </style>
     <noscript
       ><style amp-boilerplate>
         body {
@@ -100,55 +103,6 @@
       permission-dialog-url="https://<%= host %>/amp-web-push-permission-dialog.html"
       service-worker-url="https://<%= host %>/push7-worker.js?appno=<%= appno %>"
     ></amp-web-push>
-
-    <!-- Clicking the subscription widget pops up a page prompting the user for notification permissions and signals the service worker (configured below) to subscribe the user to push in the background. On this example, we are intercepting the call to `onMessageReceivedSubscribe`, and storing the subscription object on IndexedDB.
-    -->
-    <amp-web-push-widget
-      visibility="unsubscribed"
-      layout="fixed"
-      width="500"
-      height="70"
-    >
-      <button on="tap:amp-web-push.subscribe">
-        Subscribe to Notifications
-      </button>
-    </amp-web-push-widget>
-
-    <!-- Clicking the unsubscription widget signals the worker to unsubscribe the user from push in the background. On this example, we'll be also removing the previoulsy stored subscription object from IndexedDB.
-  -->
-    <amp-web-push-widget
-      visibility="subscribed"
-      layout="fixed"
-      width="500"
-      height="180"
-    >
-      <button on="tap:amp-web-push.unsubscribe">
-        Unsubscribe from Notifications
-      </button>
-      <form
-        method="post"
-        action-xhr="https://amp.dev/documentation/examples/components/amp-web-push/send-push"
-        target="_top"
-      >
-        <input type="submit" value="Send Web Push" />
-        <div submitting>
-          Sending Push message...
-        </div>
-        <div submit-success>
-          Web Push sent!
-        </div>
-        <div submit-error>
-          Something went wrong.
-        </div>
-      </form>
-    </amp-web-push-widget>
-    <amp-web-push-widget
-      visibility="blocked"
-      layout="fixed"
-      width="250"
-      height="80"
-    >
-      Looks like you've blocked notifications!
-    </amp-web-push-widget>
+    <%- include('_push7-widget.html') %>
   </body>
 </html>
