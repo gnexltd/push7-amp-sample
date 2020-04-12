@@ -14,7 +14,10 @@ const argv = require("yargs")
 const params = {
   host: argv["host"],
   appno: argv["appno"],
-  sw: typeof argv["sw-url"] === "string" ? argv["sw-url"] : "https://aldebaran.push7.com/ex-push7-worker.js",
+  sw:
+    typeof argv["sw-url"] === "string"
+      ? argv["sw-url"]
+      : "https://aldebaran.push7.com/ex-push7-worker.js",
 };
 
 const srcDir = path.resolve(__dirname, "src");
