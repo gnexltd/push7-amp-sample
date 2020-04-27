@@ -17,7 +17,7 @@ const params = {
   sw:
     typeof argv["sw-url"] === "string"
       ? argv["sw-url"]
-      : "https://aldebaran.push7.com/ex-push7-worker.js",
+      : "https://aldebaran.push7.jp/ex-push7-worker.js",
 };
 
 const srcDir = path.resolve(__dirname, "src");
